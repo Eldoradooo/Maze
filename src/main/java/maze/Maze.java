@@ -13,9 +13,10 @@ public class Maze {
     System.out.print("Heigth: " + heigth + " ");
     System.out.print("Width: " + width + "\n");
     String[][] result;
+    // result = c.createMaze(11, 11);
     result = c.createMaze(11, 11);
-    for(int i = 0;i < heigth; i++) {
-            for(int j = 0;j < width; j++) {
+    for(int i = 0;i < 11; i++) {
+            for(int j = 0;j < 11; j++) {
                 System.out.print(result[j][i]);
             }
             System.out.print("\n");
