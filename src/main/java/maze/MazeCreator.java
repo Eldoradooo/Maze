@@ -27,9 +27,9 @@ public class MazeCreator {
         while (dots != 0) {
             for (int i = 2; i < heigth; i = i + 2) {
                 for (int j = 2; j < width; j = j + 2) {
+                    rightNeighbor = true;
+                    downNeighbor = true;
                     if ("0".equals(maze[j][i]) == true) {
-                        rightNeighbor = true;
-                        downNeighbor = true;
                         paramSX = j - 2;
                         paramSY = i - 2;
                         paramEX = j + 2;
@@ -67,13 +67,45 @@ public class MazeCreator {
             }
             dots = dots - 1;
         }
+        Random rand2 = new Random();
+        int los1 = rand2.nextInt(2);
+        int los2 = rand2.nextInt(2);
+        int start, koniec;
+        if(los1 == 1) {  // góra-dół
+            if(los2 == 1) { //start:góra koniec:dół
+                start = (rand2.nextInt((width-1)/2) + 1) * 2 - 1;
+                koniec = (rand2.nextInt((width-1)/2) + 1) * 2 - 1;
+                maze[0][start] = "#";
+                maze[heigth-1][koniec] = "*";
+            }
+            else if(los2 == 0) { //start:dół koniec:góra
+                start = (rand2.nextInt((width-1)/2) + 1) * 2 - 1;
+                koniec = (rand2.nextInt((width-1)/2) + 1) * 2 - 1;
+                maze[heigth-1][start] = "#";
+                maze[0][koniec] = "*";
+            }
+        }
+        else if(los1 == 0) { // lewo-prawo
+            if(los2 == 1) { //start:lewo koniec:prawo
+                start = (rand2.nextInt((heigth-1)/2) + 1) * 2 - 1;
+                koniec = (rand2.nextInt((heigth-1)/2) + 1) * 2 - 1;
+                maze[start][0] = "#";
+                maze[koniec][width-1] = "*";
+            }
+            else if(los2 == 0) { //start:prawo koniec:lewo
+                start = (rand2.nextInt((heigth-1)/2) + 1) * 2 - 1;
+                koniec = (rand2.nextInt((heigth-1)/2) + 1) * 2 - 1;
+                maze[start][width-1] = "#";
+                maze[koniec][0] = "*";
+            }
+        }
         return maze;
 
     }
 
     public String[][] divideMaze(String[][] notDividedMaze, int sx, int sy, int ex, int ey) {
-        for(int i = 0;i < 11; i++) {
-            for(int j = 0;j < 11; j++) {
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 11; j++) {
                 System.out.print(notDividedMaze[j][i]);
             }
             System.out.print("\n");
