@@ -75,28 +75,28 @@ public class MazeCreator {
             if(los2 == 1) { //start:góra koniec:dół
                 start = (rand2.nextInt((width-1)/2) + 1) * 2 - 1;
                 koniec = (rand2.nextInt((width-1)/2) + 1) * 2 - 1;
-                maze[0][start] = "#";
-                maze[heigth-1][koniec] = "*";
+                maze[start][0] = "#";
+                maze[koniec][heigth-1] = "*";
             }
             else if(los2 == 0) { //start:dół koniec:góra
                 start = (rand2.nextInt((width-1)/2) + 1) * 2 - 1;
                 koniec = (rand2.nextInt((width-1)/2) + 1) * 2 - 1;
-                maze[heigth-1][start] = "#";
-                maze[0][koniec] = "*";
+                maze[start][heigth-1] = "#";
+                maze[koniec][0] = "*";
             }
         }
         else if(los1 == 0) { // lewo-prawo
             if(los2 == 1) { //start:lewo koniec:prawo
                 start = (rand2.nextInt((heigth-1)/2) + 1) * 2 - 1;
                 koniec = (rand2.nextInt((heigth-1)/2) + 1) * 2 - 1;
-                maze[start][0] = "#";
-                maze[koniec][width-1] = "*";
+                maze[0][start] = "#";
+                maze[width-1][koniec] = "*";
             }
             else if(los2 == 0) { //start:prawo koniec:lewo
                 start = (rand2.nextInt((heigth-1)/2) + 1) * 2 - 1;
                 koniec = (rand2.nextInt((heigth-1)/2) + 1) * 2 - 1;
-                maze[start][width-1] = "#";
-                maze[koniec][0] = "*";
+                maze[width-1][start] = "#";
+                maze[0][koniec] = "*";
             }
         }
         return maze;
@@ -104,7 +104,7 @@ public class MazeCreator {
     }
 
     public String[][] divideMaze(String[][] notDividedMaze, int sx, int sy, int ex, int ey) {
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 11; j++) {
                 System.out.print(notDividedMaze[j][i]);
             }
