@@ -104,7 +104,7 @@ public class MazeCreator {
     }
 
     public String[][] divideMaze(String[][] notDividedMaze, int sx, int sy, int ex, int ey) {
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 11; i++) {
             for (int j = 0; j < 11; j++) {
                 System.out.print(notDividedMaze[j][i]);
             }

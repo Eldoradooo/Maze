@@ -11,6 +11,7 @@ public class Maze {
     MazeCreator c = new MazeCreator();
     MazeSaver save = new MazeSaver();
     BFSAlgorithm bfs = new BFSAlgorithm();
+    TremauxAlgorithm tre = new TremauxAlgorithm();
     File file = new File("maze.txt");
    /* boolean exists = file.exists();
     if(exists) {
@@ -24,9 +25,9 @@ public class Maze {
     System.out.print("Heigth: " + heigth + " ");
     System.out.print("Width: " + width + "\n");
     String[][] result;
-    // result = maze1.loadMaze(file);
-    result = c.createMaze(11, 11);
-    result = bfs.solveMazeWithBFS(result, heigth, width);
+    result = maze1.loadMaze(file);
+    //result = c.createMaze(11, 11);
+    result = tre.solveMazeWithTremaux(result, width, heigth);
     for(int i = 0;i < 11; i++) {
             for(int j = 0;j < 11; j++) {
                 System.out.print(result[j][i]);

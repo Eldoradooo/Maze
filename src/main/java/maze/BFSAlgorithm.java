@@ -8,7 +8,7 @@ import java.util.Queue;
 
 public class BFSAlgorithm {
 
-    public String[][] solveMazeWithBFS(String[][] maze, int heigth, int width) {
+    public String[][] solveMazeWithBFS(String[][] maze, int width, int heigth) {
         heigth = (heigth - 1) / 2;
         width = (width - 1) / 2;
         HashMap<Integer, List<Integer>> graph;
@@ -19,8 +19,6 @@ public class BFSAlgorithm {
         for (int i = 1; i <= width * heigth; i++) {
             if (checkFor(maze, graph, i, "#")) {
                 start = i;
-                System.out.print("Start: " + start);
-                System.out.print("\n");
                 break;
             }
         }
@@ -29,33 +27,23 @@ public class BFSAlgorithm {
         while (!queue.isEmpty()) {
             tmp = queue.remove();
             if (checkFor(maze, graph, tmp, "*")) {
-                System.out.print("Koniec: " + tmp);
-                System.out.print("\n");
                 break;
             }
             if ("0".equals(maze[graph.get(tmp).get(0) + 1][graph.get(tmp).get(1)]) && !"o".equals(maze[graph.get(tmp).get(0) + 2][graph.get(tmp).get(1)])) {
                 queue.add(tmp + 1);
                 deletedNeighbor[tmp + 1] = tmp;
-                System.out.print(tmp + 1);
-                System.out.print("\n");
             }
             if ("0".equals(maze[graph.get(tmp).get(0) - 1][graph.get(tmp).get(1)]) && !"o".equals(maze[graph.get(tmp).get(0) - 2][graph.get(tmp).get(1)])) {
                 queue.add(tmp - 1);
                 deletedNeighbor[tmp - 1] = tmp;
-                System.out.print(tmp - 1);
-                System.out.print("\n");
             }
             if ("0".equals(maze[graph.get(tmp).get(0)][graph.get(tmp).get(1) + 1]) && !"o".equals(maze[graph.get(tmp).get(0)][graph.get(tmp).get(1) + 2])) {
                 queue.add(tmp + width);
                 deletedNeighbor[tmp + width] = tmp;
-                System.out.print(tmp + width);
-                System.out.print("\n");
             }
             if ("0".equals(maze[graph.get(tmp).get(0)][graph.get(tmp).get(1) - 1]) && !"o".equals(maze[graph.get(tmp).get(0)][graph.get(tmp).get(1) - 2])) {
                 queue.add(tmp - width);
                 deletedNeighbor[tmp - width] = tmp;
-                System.out.print(tmp - width);
-                System.out.print("\n");
             }
             maze[graph.get(tmp).get(0)][graph.get(tmp).get(1)] = "o";
         }
@@ -94,29 +82,6 @@ public class BFSAlgorithm {
             }
         }
         return graph;
-    }
-
-    public void checkNodes(int[][] nodes, String[][] maze, HashMap<Integer, List<Integer>> graph, int i, int width) {
-        if ("0".equals(maze[graph.get(i).get(0) - 1][graph.get(i).get(1)])) {
-            nodes[i][i - 1] = 1;
-        } else {
-            nodes[i][i - 1] = 0;
-        }
-        if ("0".equals(maze[graph.get(i).get(0) + 1][graph.get(i).get(1)])) {
-            nodes[i][i + 1] = 1;
-        } else {
-            nodes[i][i + 1] = 0;
-        }
-        if ("0".equals(maze[graph.get(i).get(0) + width][graph.get(i).get(1)])) {
-            nodes[i][i + width] = 1;
-        } else {
-            nodes[i][i + width] = 0;
-        }
-        if ("0".equals(maze[graph.get(i).get(0) - width][graph.get(i).get(1)])) {
-            nodes[i][i - width] = 1;
-        } else {
-            nodes[i][i - width] = 0;
-        }
     }
 
     public boolean checkFor(String[][] maze, HashMap<Integer, List<Integer>> graph, int i, String thing) {
