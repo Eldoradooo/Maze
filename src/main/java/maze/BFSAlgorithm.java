@@ -9,12 +9,12 @@ import java.util.Queue;
 public class BFSAlgorithm {
 
     public String[][] solveMazeWithBFS(String[][] maze, int width, int heigth) {
-        heigth = (heigth - 1) / 2;
-        width = (width - 1) / 2;
         HashMap<Integer, List<Integer>> graph;
         Queue<Integer> queue = new ArrayDeque<>();
         int start = 0, tmp = 0;
         int[] deletedNeighbor = new int[heigth * width + 1];
+        heigth = (heigth - 1) / 2;
+        width = (width - 1) / 2;
         graph = generateVertices(maze);
         for (int i = 1; i <= width * heigth; i++) {
             if (checkFor(maze, graph, i, "#")) {
@@ -47,10 +47,14 @@ public class BFSAlgorithm {
             }
             maze[graph.get(tmp).get(0)][graph.get(tmp).get(1)] = "o";
         }
+        System.out.print("Ścieżka (od wyjścia do wejścia): \n");
+        System.out.print(tmp);
         while (tmp != start) {
             maze[graph.get(tmp).get(0)][graph.get(tmp).get(1)] = "s";
             tmp = deletedNeighbor[tmp];
+            System.out.print("->" + tmp);
         }
+        System.out.print(" \n");
         maze[graph.get(tmp).get(0)][graph.get(tmp).get(1)] = "s";
 
         for (int i = 1; i < heigth * 2; i++) {
