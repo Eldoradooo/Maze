@@ -7,7 +7,7 @@ public class MazeCreator {
     public String[][] createMaze(int width, int heigth) {
         String[][] maze = new String[width][heigth];
         int paramSX, paramSY, paramEX, paramEY;
-        for (int i = 0; i < heigth; i++) {
+        for (int i = 0; i < heigth; i++) { //utworzenie pustej planszy z ramką
             for (int j = 0; j < width; j++) {
                 if (i == 0 || i == heigth - 1 || j == 0 || j == width - 1) {
                     maze[j][i] = "+";
@@ -20,8 +20,8 @@ public class MazeCreator {
         paramSY = 0;
         paramEX = width - 1;
         paramEY = heigth - 1;
-        maze = divideMaze(maze, paramSX, paramSY, paramEX, paramEY);
-        maze = generateRandomStartAndEnd(maze, width, heigth);
+        maze = divideMaze(maze, paramSX, paramSY, paramEX, paramEY); //początek rekurencji
+        maze = generateRandomStartAndEnd(maze, width, heigth); //wyznaczenie wejścia i wyjścia
         return maze;
     }
 

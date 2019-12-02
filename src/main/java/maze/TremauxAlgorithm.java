@@ -5,7 +5,7 @@ public class TremauxAlgorithm {
     public String[][] solveMazeWithTremaux(String[][] maze, int width, int heigth) {
         int x = 1, y = 1, xfrom = 0, yfrom = 0, mark = 1, k = 1;
         int[] pos;
-        for (int i = 1; i < heigth; i = i + 2) {
+        for (int i = 1; i < heigth; i = i + 2) { //wyznaczenie parametrów wejścia
             for (int j = 1; j < width; j = j + 2) {
                 if ("#".equals(maze[j - 1][i]) || "#".equals(maze[j + 1][i]) || "#".equals(maze[j][i - 1]) || "#".equals(maze[j][i + 1])) {
                     x = j;
@@ -13,15 +13,14 @@ public class TremauxAlgorithm {
                 }
             }
         }
-        while(k!=0) {
-         if("*".equals(maze[x - 1][y]) || "*".equals(maze[x + 1][y]) || "*".equals(maze[x][y - 1]) || "*".equals(maze[x][y + 1])) {
-             break;
-         }
-            if(isItCrossing(maze, x, y)) {
-            pos = checkWhereToGo(maze, x, y, xfrom, yfrom);
+        while (k != 0) { //pętla zakończy się w momencie odnalezienia wyjścia
+            if ("*".equals(maze[x - 1][y]) || "*".equals(maze[x + 1][y]) || "*".equals(maze[x][y - 1]) || "*".equals(maze[x][y + 1])) {
+                break;
             }
-            else {
-            pos = keepGoing(maze, x, y, xfrom, yfrom, mark);
+            if (isItCrossing(maze, x, y)) { //sprawdza, czy natrafiono na skrzyżowanie
+                pos = checkWhereToGo(maze, x, y, xfrom, yfrom);
+            } else {
+                pos = keepGoing(maze, x, y, xfrom, yfrom, mark);
             }
             xfrom = x;
             yfrom = y;
@@ -30,6 +29,7 @@ public class TremauxAlgorithm {
             mark = pos[2];
             maze[xfrom][yfrom] = Integer.toString(mark);
         }
+        //wypisanie ścieżki na planszy 
         maze[x][y] = "s";
         
         for (int i = 0; i < heigth; i = i + 1) {
@@ -86,7 +86,7 @@ public class TremauxAlgorithm {
         return position;
 
     }
-    
+
     public boolean isItCrossing(String[][] maze, int posX, int posY) {
         int w = 0;
         if ("0".equals(maze[posX + 1][posY]) || "1".equals(maze[posX + 1][posY]) || "2".equals(maze[posX + 1][posY])) {
@@ -100,32 +100,29 @@ public class TremauxAlgorithm {
         }
         return w != 2;
     }
-    
+
     public int[] keepGoing(String[][] maze, int posX, int posY, int Xfrom, int Yfrom, int mark) {
         int[] position = new int[3];
         if ("0".equals(maze[posX + 1][posY]) || "1".equals(maze[posX + 1][posY])) {
-            if(posX + 1 != Xfrom || posY != Yfrom) {
+            if (posX + 1 != Xfrom || posY != Yfrom) {
                 position[0] = posX + 1;
                 position[1] = posY;
                 position[2] = mark;
             }
-        }
-        else if ("0".equals(maze[posX - 1][posY]) || "1".equals(maze[posX - 1][posY])) {
-            if(posX + 1 != Xfrom || posY != Yfrom) {
+        } else if ("0".equals(maze[posX - 1][posY]) || "1".equals(maze[posX - 1][posY])) {
+            if (posX + 1 != Xfrom || posY != Yfrom) {
                 position[0] = posX - 1;
                 position[1] = posY;
                 position[2] = mark;
             }
-        }
-        else if ("0".equals(maze[posX][posY + 1]) || "1".equals(maze[posX][posY + 1])) {
-            if(posX + 1 != Xfrom || posY != Yfrom) {
+        } else if ("0".equals(maze[posX][posY + 1]) || "1".equals(maze[posX][posY + 1])) {
+            if (posX + 1 != Xfrom || posY != Yfrom) {
                 position[0] = posX;
                 position[1] = posY + 1;
                 position[2] = mark;
             }
-        }
-        else if ("0".equals(maze[posX][posY - 1]) || "1".equals(maze[posX][posY - 1])) {
-            if(posX + 1 != Xfrom || posY != Yfrom) {
+        } else if ("0".equals(maze[posX][posY - 1]) || "1".equals(maze[posX][posY - 1])) {
+            if (posX + 1 != Xfrom || posY != Yfrom) {
                 position[0] = posX;
                 position[1] = posY - 1;
                 position[2] = mark;
