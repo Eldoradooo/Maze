@@ -5,9 +5,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class MazeLoader {
+    
+    
     public String[][] loadMaze(File file) throws FileNotFoundException  {
         int width = getWidth(file);
-        int heigth = getHeigth(file);
+        int heigth = getHeight(file);
         String line;
         String[][] loadedMaze = new String[width][heigth];
         Scanner sc2 = new Scanner(file);
@@ -20,7 +22,7 @@ public class MazeLoader {
         return loadedMaze;
     }
     
-    public int getHeigth(File file) throws FileNotFoundException {
+    public int getHeight(File file) throws FileNotFoundException {
         Scanner sc3 = new Scanner(file);
         int heigth = 0;
         while(sc3.hasNextLine() != false) {

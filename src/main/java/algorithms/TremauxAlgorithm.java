@@ -1,11 +1,21 @@
-package maze;
+package algorithms;
+import maze.Maze;
 
 public class TremauxAlgorithm {
-
-    public String[][] solveMazeWithTremaux(String[][] maze, int width, int heigth) {
+    
+    Maze mazeStruct;
+    
+    public TremauxAlgorithm(Maze mazeStruct) {
+        this.mazeStruct = mazeStruct;
+    }
+    
+    public void solveMazeWithTremaux() {
+        String[][] maze = mazeStruct.getMaze();
+        int width = mazeStruct.getWidth();
+        int height = mazeStruct.getHeight();
         int x = 1, y = 1, xfrom = 0, yfrom = 0, mark = 1, k = 1;
         int[] pos;
-        for (int i = 1; i < heigth; i = i + 2) { //wyznaczenie parametrów wejścia
+        for (int i = 1; i < height; i = i + 2) { //wyznaczenie parametrów wejścia
             for (int j = 1; j < width; j = j + 2) {
                 if ("#".equals(maze[j - 1][i]) || "#".equals(maze[j + 1][i]) || "#".equals(maze[j][i - 1]) || "#".equals(maze[j][i + 1])) {
                     x = j;
@@ -32,7 +42,7 @@ public class TremauxAlgorithm {
         //wypisanie ścieżki na planszy 
         maze[x][y] = "s";
         
-        for (int i = 0; i < heigth; i = i + 1) {
+        for (int i = 0; i < height; i = i + 1) {
             for (int j = 0; j < width; j = j + 1) {
                 if ("1".equals(maze[j][i])) {
                     maze[j][i] = "s";
@@ -41,7 +51,7 @@ public class TremauxAlgorithm {
                 }
             }
         }
-        return maze;
+        mazeStruct.setMaze(maze);
     }
 
     public int[] checkWhereToGo(String[][] maze, int posX, int posY, int Xfrom, int Yfrom) {

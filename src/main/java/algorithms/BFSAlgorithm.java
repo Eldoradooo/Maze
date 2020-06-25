@@ -1,23 +1,33 @@
-package maze;
+package algorithms;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Queue;
+import maze.Maze;
 
 public class BFSAlgorithm {
+    
+    Maze mazeStruct;
+    
+    public BFSAlgorithm(Maze mazeStruct) {
+        this.mazeStruct = mazeStruct;
+    }
 
-    public String[][] solveMazeWithBFS(String[][] maze, int width, int heigth) {
+    public void solveMazeWithBFS() {
+        String[][] maze = mazeStruct.getMaze();
+        int width = mazeStruct.getWidth();
+        int height = mazeStruct.getHeight();
         HashMap<Integer, List<Integer>> graph;  
         Queue<Integer> queue = new ArrayDeque<>();
         int start = 0, tmp = 0;
-        int[] deletedNeighbor = new int[heigth * width + 1];
-        heigth = (heigth - 1) / 2;
+        int[] deletedNeighbor = new int[height * width + 1];
+        height = (height - 1) / 2;
         width = (width - 1) / 2;
         graph = generateVertices(maze);  //utworzenie grafu
-        for (int i = 1; i <= width * heigth; i++) {  //odnalezienie wierzchołka startowego
-            if (checkFor(maze, graph, i, "#")) {
+        for (int i = 1; i <= width * height; i++) {  //odnalezienie wierzchołka startowego
+            if (checkForStartOrExit(maze, graph, i, "#")) {
                 start = i;
                 break;
             }
@@ -26,7 +36,7 @@ public class BFSAlgorithm {
         queue.add(start);  //dodanie do kolejki wierzchołka startowego
         while (!queue.isEmpty()) {  //pętla działa, dopóki kolejka będzie zawierała elementy
             tmp = queue.remove();
-            if (checkFor(maze, graph, tmp, "*")) {
+            if (checkForStartOrExit(maze, graph, tmp, "*")) {
                 break;
             }
             if ("0".equals(maze[graph.get(tmp).get(0) + 1][graph.get(tmp).get(1)]) && !"o".equals(maze[graph.get(tmp).get(0) + 2][graph.get(tmp).get(1)])) {
@@ -58,7 +68,7 @@ public class BFSAlgorithm {
         System.out.print(" \n");
         maze[graph.get(tmp).get(0)][graph.get(tmp).get(1)] = "s";
 
-        for (int i = 1; i < heigth * 2; i++) {
+        for (int i = 1; i < height * 2; i++) {
             for (int j = 1; j < width * 2; j++) {
                 if("o".equals(maze[j][i])) {
                     maze[j][i] = "0";
@@ -71,7 +81,7 @@ public class BFSAlgorithm {
                 }
             }
         }
-        return maze;
+        mazeStruct.setMaze(maze);
     }
 
     public HashMap<Integer, List<Integer>> generateVertices(String[][] maze) {
@@ -89,7 +99,7 @@ public class BFSAlgorithm {
         return graph;
     }
 
-    public boolean checkFor(String[][] maze, HashMap<Integer, List<Integer>> graph, int i, String thing) {
+    public boolean checkForStartOrExit(String[][] maze, HashMap<Integer, List<Integer>> graph, int i, String thing) {
         if (thing.equals(maze[graph.get(i).get(0) - 1][graph.get(i).get(1)])) {
             return true;
         } else if (thing.equals(maze[graph.get(i).get(0) + 1][graph.get(i).get(1)])) {

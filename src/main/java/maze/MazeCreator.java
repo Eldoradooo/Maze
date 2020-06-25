@@ -3,13 +3,21 @@ package maze;
 import java.util.Random;
 
 public class MazeCreator {
+    
+    int width;
+    int height;
+    
+    public MazeCreator(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
 
-    public String[][] createMaze(int width, int heigth) {
-        String[][] maze = new String[width][heigth];
+    public String[][] createMaze() {
+        String[][] maze = new String[width][height];
         int paramSX, paramSY, paramEX, paramEY;
-        for (int i = 0; i < heigth; i++) { //utworzenie pustej planszy z ramką
+        for (int i = 0; i < height; i++) { //utworzenie pustej planszy z ramką
             for (int j = 0; j < width; j++) {
-                if (i == 0 || i == heigth - 1 || j == 0 || j == width - 1) {
+                if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
                     maze[j][i] = "+";
                 } else {
                     maze[j][i] = "0";
@@ -19,9 +27,9 @@ public class MazeCreator {
         paramSX = 0;
         paramSY = 0;
         paramEX = width - 1;
-        paramEY = heigth - 1;
+        paramEY = height - 1;
         maze = divideMaze(maze, paramSX, paramSY, paramEX, paramEY); //początek rekurencji
-        maze = generateRandomStartAndEnd(maze, width, heigth); //wyznaczenie wejścia i wyjścia
+        maze = generateRandomStartAndEnd(maze, width, height); //wyznaczenie wejścia i wyjścia
         return maze;
     }
 
